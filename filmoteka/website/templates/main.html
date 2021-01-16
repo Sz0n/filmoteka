@@ -1,0 +1,24 @@
+{% load static %}
+<html lang="pl">
+<meta charset="utf-8"/>
+<head>
+    <title>Filmoteka</title>
+</head>
+<body id="main_body">
+{% if messages %}
+{% for message in messages %}
+<center>
+    {% if message.tags == "info" %}
+    <div class="alert alert-primary" role="alert" style="width: 650px; margin-top: 1%">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+</center>
+<center>
+    <div class="title"><h1>Filmoteka</h1></div>
+</center>
+
+</body>
+</html>
