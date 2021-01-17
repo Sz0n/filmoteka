@@ -1,5 +1,8 @@
+import urllib.parse
+from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.views.generic import View
+from django.template import RequestContext
 from django.contrib import messages
 from .models import Movie
 from .modules.scraping_logic import Scrape
@@ -35,3 +38,18 @@ class HomeView(View):
 
     def get(self, *args, **kwargs):
         return render(self.request, self.template_name, {})
+
+
+def show_movie(request, title):
+    template_name = 'show_movie.html'
+
+    try:
+        founded_film = Movie.objects.get(title__iexact=urllib.parse.unquote(title))
+
+    except Exception as e:
+        print(type(e))
+        print(e)
+
+        # founded_film = Movie.objects.filter(title__iexact=urllib.parse.unquote(title))
+
+    return render(request, template_name, {'movie': founded_film})

@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% load static %}
+{#{% load comments %}#}
+{#{% load ratings %}#}
+{% block content %}
+    <section class="poster-section">
+        <img class="poster" height="100%" width="100%" src="{{ movie.poster }}">
+    </section>
+    <body>
+    <script type="text/javascript">
+        function SwapDivsWithClick(id, div1, div2, div3, div4) {
+            d1 = document.getElementById(div1);
+            d2 = document.getElementById(div2);
+            d3 = document.getElementById(div3);
+            d4 = document.getElementById(div4);
+            switch (id) {
+                case 2:
+                    d1.style.display = "none";
+                    d2.style.display = "block";
+                    d3.style.display = "none";
+                    d4.style.display = "none";
+                    break;
+                case 1:
+                    d1.style.display = "block";
+                    d2.style.display = "none";
+                    d3.style.display = "none";
+                    d4.style.display = "none";
+                    break;
+                case 3:
+                    d1.style.display = "none";
+                    d2.style.display = "none";
+                    d3.style.display = "block";
+                    d4.style.display = "none";
+                    break;
+                case 4:
+                    d1.style.display = "none";
+                    d2.style.display = "none";
+                    d3.style.display = "none";
+                    d4.style.display = "block";
+                    break;
+                default:
+                    d1.style.display = "none";
+                    d2.style.display = "block";
+                    d3.style.display = "none";
+                    d4.style.display = "none";
+                    break;
+            }
+
+        }
+    </script>
+    <section class="info-section">
+        <div id="page-wrap">
+            <nav class="info-nav">
+                <ul class="group">
+                    <li>
+                        <a href="javascript:SwapDivsWithClick(1,'swapper-main','swapper-description','swapper-bonus-info','swapper-comments')">Głowne</a>
+                    </li>
+                    <li>
+                        <a href="javascript:SwapDivsWithClick(2,'swapper-main','swapper-description','swapper-bonus-info','swapper-comments')">Opis</a>
+                    </li>
+                    <li>
+                        <a href="javascript:SwapDivsWithClick(3,'swapper-main','swapper-description','swapper-bonus-info','swapper-comments')">Dodatkowe</a>
+                    </li>
+                    <li>
+                        <a href="javascript:SwapDivsWithClick(4,'swapper-main','swapper-description','swapper-bonus-info','swapper-comments')">Komentarze</a>
+                    </li>
+                </ul>
+            </nav>
+            <div id="swapper-main">
+
+                <div class="title-info">
+                    <h1>{{ movie.title }}</h1>
+                    <span>{{ movie.year }}</span>
+                    <span>{{ movie.time }}min</span>
+                        {{ movie.title }}
+                    <hr style="margin-top: -1px">
+                </div>
+                <div class="basic-info">
+                    <table class="tg">
+                        <tr>
+                            <td class="tg-6mcr">Rezyseria:</td>
+                            <td class="tg-0lax">
+                                {% for director in movie.directors_as_list %}
+                                    {{ director }}
+                                    {% if not forloop.last %}
+                                        /
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tg-6mcr">Gatunek:</td>
+                            <td class="tg-0lax">
+                                {% for genre in movie.genres_as_list %}
+                                    {{ genre }}
+                                    {% if not forloop.last %}
+                                        /
+                                    {% endif %}
+                                {% endfor %}</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-6mcr">Produkcja:</td>
+                            <td class="tg-0lax">
+                                {% for country in movie.countries_as_list %}
+                                    {{ country }}
+                                    {% if not forloop.last %}
+                                        /
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tg-6mcr">Premiera:</td>
+                            <td class="tg-0lax">{{ movie.premiere }}</td>
+                        </tr>
+                    </table>
+
+                    <i>
+                        <div class="short-desc" style="width: 47%; float: right; margin-top: -150px;">
+                            {{ movie.short_description }}
+                        </div>
+                    </i>
+                    {% if user.is_authenticated %}
+                        <form method="POST" id="urlform" action="" style="float: left; margin: 1% 15%">
+                            {% csrf_token %}
+                            <input type="submit" name="add_to_favs" value="Dodaj do ulubionych"
+                                   style="width: 105%; border-radius: 16px; background: rgba(0, 2, 64, 0.93); color: #eeeeee;"/>
+                        </form>
+                        <center>
+                            <div style="margin-top: 10px; margin-left: 50%;">
+{#                                {% ratings movie 18 18 %}#}
+                            </div>
+                        </center>
+                    {% else %}
+                        <center>
+                            <div style="margin-top: 10px;">
+{#                                {% ratings movie 18 18 %}#}
+                            </div>
+                        </center>
+                    {% endif %}
+                </div>
+            </div>
+            <div id="swapper-description" style="display:none;">
+                <div class="desc-info">
+                    <h2>Opis filmu:</h2>
+                    <hr style="margin-top: auto">
+                    <span>{{ movie.full_description }}</span>
+                </div>
+            </div>
+            <div id="swapper-bonus-info" style="display:none;">
+                <h2>Dodatkowe informacje:</h2>
+                <hr style="margin-top: auto">
+                <table class="additional-info">
+                    <tr>
+                        <td class="tg-6mcr">Boxoffice:</td>
+                        <td class="tg-0lax">
+                            {% for boxoffice in movie.boxoffice_as_list %}
+                                {{ boxoffice }}
+                                {% if not forloop.last %}
+                                    <br>
+                                {% endif %}
+                            {% endfor %}</td>
+                        <td class="tg-6mcr">Studio:</td>
+                        <td class="tg-0lax">
+                            {% for studio in movie.studios_as_list %}
+                                {{ studio }}
+                                {% if not forloop.last %}
+                                    <br>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    `
+                    <tr>
+                        <td class="tg-6mcr">Budżet:</td>
+                        <td class="tg-0lax">
+                            {{ movie.budget }}
+                        <td class="tg-6mcr">Dystrybucja:</td>
+                        <td class="tg-0lax">
+                            {{ movie.distribution }}
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <div id="swapper-comments" style="display:none;">
+                <h2>Komentarze:</h2>
+                <hr style="margin-top: auto">
+{#                {% get_comment_count for movie as comment_count %}#}
+                <p>{{ comment_count }} komentarzy</p>
+                <div id="comment_list" name="comment_list" style="max-height: 28%; overflow-y: scroll;">
+{#                    {% render_comment_list for movie %}#}
+                </div>
+                <hr style="margin-top: auto">
+                {% if user.is_authenticated %}
+{#                    {% get_comment_form for movie as form %}#}
+{#                    <form action="{% comment_form_target %}" method="POST">#}
+                        {% csrf_token %}
+                        <center>
+                            <table>
+{#                                {{ form.comment }}#}
+{#                                {{ form.content_type }}#}
+{#                                {{ form.object_pk }}#}
+{#                                {{ form.timestamp }}#}
+{#                                {{ form.security_hash }}#}
+                            </table>
+                            <input type="hidden" name="email" value="foo@foo.foo"/>
+                            <input type="hidden" name="next" value="{{ request.get_full_path }}"/>
+                            <input type="submit" value="Dodaj komentarz" id="id_submit"/></center>
+                    </form>
+                {% else %}
+{#                    <p>Musisz być <a href="{% url 'login' %}?next={{ request.get_full_path|urlencode }}">zalogowany</a> żeby dodać komentarz.</p>#}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    </body>
+{% endblock %}
+</html>
