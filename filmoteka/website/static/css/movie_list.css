@@ -1,0 +1,53 @@
+.moviePreview_card {
+    width: 650px;
+    height: 201px;
+    margin: 1% auto;
+    border: 1px solid #0b1257;
+    z-index: 1;
+}
+
+.poster {
+    float: left;
+    height: 200px;
+    width: 140px;
+}
+
+.poster img {
+    position: absolute;
+    z-index: -1;
+    height: 200px;
+    width: 140px;
+}
+
+.info {
+    float: right;
+    width: 77%;
+    height: 88%;
+}
+
+.title {
+    font-size: 24px;
+}
+
+.time {
+    margin-top: -8px;
+}
+
+.director {
+    font-size: 11px;
+    float: right;
+    margin: -3% 1%;
+}
+
+.desc {
+    font-size: 13px;
+}
+
+.rating {
+    padding-left: 23%;
+}
+
+.result_title {
+    width: 650px;
+    margin: 1% auto;
+}

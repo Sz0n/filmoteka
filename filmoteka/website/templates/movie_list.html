@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{#{% load ratings %}#}
+{% block content %}
+    <body>
+    {% if messages %}
+        {% for message in messages %}
+            <center>
+                {% if message.tags == "info" %}
+                    <div class="alert alert-primary" role="alert" style="width: 650px; margin-top: 1%">
+                        {{ message }}
+                    </div>
+                {% elif message.tags == "warning" %}
+                    <div class="alert alert-primary" role="alert" style="width: 650px; margin-top: 1%">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            </center>
+        {% endfor %}
+    {% endif %}
+    {% for s in search_result %}
+        <div class="moviePreview_card">
+            <section class="poster">
+                <img height="100%" width="100%" src="{{ s.poster }}">
+            </section>
+            <section class="info">
+                <div class="title">
+                    <a href="{% url 'show_movie' s.title %}">{{ s.title }}</a>
+                    <span>({{ s.year }})</span>
+                </div>
+                <div class="time">
+                    <span>{{ s.time }}min</span>
+                </div>
+                <br>
+                <div class="desc">
+                    <i><span>{{ s.short_description }}</span></i>
+                </div>
+            </section>
+
+            <div class="rating">
+{#                {% ratings s 15 15 1 %}#}
+            </div>
+            <div class="director">
+                {% for director in s.directors_as_list %}
+                    Reżyseria: {{ director }}
+                    {% if not forloop.last %}
+                        /
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+    </body>
+{% endblock %}

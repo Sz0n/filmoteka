@@ -1,0 +1,72 @@
+body#main_body {
+    font-family: 'open sans', helvetica, arial, 'sans-serif';
+}
+
+.navbar-custom {
+    background-color: rgba(0, 2, 64, 0.93);
+}
+
+.nav-link {
+    color: ghostwhite;
+}
+
+.title h1 {
+    font-size: 100px;
+    margin-bottom: auto;
+    /*color: white;*/
+    color: rgba(0, 2, 64, 0.93);
+    margin-top: 70px;
+}
+
+.search {
+    background-color: white;
+    width: 500px;
+    height: 42px;
+    border-radius: 20px;
+    border: solid #eee;
+}
+
+input.film_url {
+
+    margin-left: 10px;
+    font-size: larger;
+    width: 430px;
+    height: 38px;
+    border: none;
+
+}
+
+input:focus {
+    outline: none;
+}
+
+.search button {
+    border: none;
+    background-color: white;
+}
+
+ul#menu li {
+    display: inline;
+}
+
+table{
+    margin-top: 25px;
+}
+
+table tr{
+    height: 25px;
+}
+
+table td{
+    text-align: center;
+    width: 135px;
+}
+
+table a {
+    color: rgba(54, 51, 119, 0.93)
+}
+
+table a:hover {
+    color: blue;
+    text-decoration: none;
+}
