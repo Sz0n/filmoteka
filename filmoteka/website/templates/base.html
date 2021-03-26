@@ -3,20 +3,61 @@
 <meta charset="utf-8"/>
 <head>
     {#  Links  #}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/show_movie.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/movie_list.css' %}">
 
     {#  Scripts  #}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css"
           integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js"
+            integrity="sha384–7aThvCh9TypR7fIc2HV4O/nFMVCBwyIUKL8XCtKE+8xgCgl/PQGuFsvShjr74PBp"
+            crossorigin="anonymous"></script>
 
     <title>Filmoteka</title>
 
 </head>
 <body id="main_body">
+<nav class="navbar navbar-expand-sm bg-custom navbar-custom">
+    <ul class="navbar-nav align-items-center mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'home' %}"><h1>Filmoteka</h1></a>
+        </li>
+    </ul>
 
-<h1>Filmoteka</h1>
+    <div class="search">
+        <form method="POST" id="urlform" action="">
+            {% csrf_token %}
+            <input name="search_bar" class="film_url" type="text" placeholder="Wpisz tytuł lub gatunek filmowy..">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+    <ul class="navbar-nav ml-3">
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                {% if user.is_authenticated %}
+                    {{ user.username }}
+                {% else %}
+                    Menu
+                {% endif %}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                {% if user.is_authenticated %}
+                    <a class="dropdown-item" href="{% url 'logout' %}">Wyloguj</a>
+                {% else %}
+                    <a class="dropdown-item"
+                       href="{% url 'login' %}?next={{ request.get_full_path|urlencode }}">Logowanie</a>
+                    <a class="dropdown-item" href="{% url 'register' %}">Rejestracja</a>
+                {% endif %}
+            </div>
+        </li>
+    </ul>
 
+</nav>
 </body>
 {% block content %}
 {% endblock %}

@@ -4,23 +4,21 @@ import bs4
 
 class Scrape:
 
-    def scrape_urls(*args, **kwardgs):
+    @staticmethod
+    def scrape_urls():
 
-        filmweb_url = 'https://www.filmweb.pl/films/search?orderBy=popularity&descending=true&page='
+        base_url = 'https://www.filmweb.pl/films/search?orderBy=popularity&descending=true&page='
 
         movies_url = []
-        for pageNum in range(11):
-            r = requests.get(filmweb_url + str(pageNum))
-            soup = bs4.BeautifulSoup(r.text, 'html.parser')
+        for page_num in range(11):
+            req = requests.get(base_url + str(page_num))
+            soup = bs4.BeautifulSoup(req.text, 'html.parser')
             for films in soup.findAll('div', 'filmPreview__card'):
-                try:
-                    movies_url.append(films.find(class_='filmPreview__link').get('href'))
-                except Exception as e:
-                    print(type(e))
-                    print(e)
-                    continue
+                movies_url.append(films.find(class_='filmPreview__link').get('href'))
+
         return movies_url
 
+    @staticmethod
     def scrape_movie(movie_url):
         movie = []
 
@@ -67,9 +65,9 @@ class Scrape:
 
         full_description = soup.find('div', attrs={'class': 'page__group', 'data-group': 'g9'})\
             .find('span', class_='descriptionSection__moreText')
-        if (full_description is None):
-            full_description = soup.find('div', attrs={'class': 'page__group', 'data-group': 'g9'}).\
-                find('p', class_='descriptionSection__text')
+        if full_description is None:
+            full_description = soup.find('div', attrs={'class': 'page__group', 'data-group': 'g9'})\
+                .find('p', class_='descriptionSection__text')
 
         try:
             boxoffice = soup.find('div', class_="filmOtherInfoSection__group")\

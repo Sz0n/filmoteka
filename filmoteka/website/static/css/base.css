@@ -1,0 +1,49 @@
+body {
+    font-family: 'open sans', helvetica, arial, 'sans-serif';
+}
+
+.navbar-custom {
+    background-color: rgba(0, 2, 64, 0.93);
+    color: white
+}
+
+.navbar h4 span {
+    padding-top3: 15px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.nav-item-1{
+    position: relative;
+    margin-top: 11px;
+}
+
+.nav-link {
+    color: ghostwhite;
+}
+
+input.film_url {
+    padding-left: 10px;
+    width: 240px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.search {
+    background-color: white;
+    width: 290px;
+    height: 27px;
+    border-radius: 20px;
+    border: solid #eee;
+}
+
+.search button {
+    border: none;
+    background-color: white;
+    margin-left: 10px;
+}
+
+input:focus {
+    outline: none;
+}
