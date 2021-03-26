@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form class="login_form" method="POST" action="{% url 'login' %}">
+        <input type="hidden" name="next" value="{{ next }}">
+        {% csrf_token %}
+        <h3>Zaloguj się</h3>
+        <div class="group">
+            <input type="text" placeholder="Login" name="username" required><span class="highlight"></span><span
+                class="bar"></span>
+            <label>Login</label>
+        </div>
+        <div class="group">
+            <input type="password" placeholder="Hasło" name="password" required><span class="highlight"></span><span
+                class="bar"></span>
+            <label>Hasło</label>
+        </div>
+        <button type="submit" class="button buttonBlue">Zaloguj
+            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+        </button>
+        <p>Jeżeli nie masz konta, <a href="{% url 'register' %}">zarejestruj</a> się.</p>
+    </form>
+
+{% endblock %}
