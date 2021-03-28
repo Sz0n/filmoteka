@@ -1,7 +1,10 @@
 import urllib.parse
+from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.contrib import messages
+from django.contrib.auth.models import User
+from fav.models import Favorite
 from .models import Movie
 from .modules.scraping_logic import Scrape
 from difflib import SequenceMatcher
@@ -45,6 +48,15 @@ def show_movie(request, title):
     template_name = 'show_movie.html'
 
     founded_film = Movie.objects.get(title__iexact=urllib.parse.unquote(title))
+
+    if 'add_to_favs' in request.POST:
+        try:
+            user = User.objects.get(username=request.user.username)
+            fav = Favorite.objects.create(user, founded_film)
+            return redirect('favourites')
+        except IntegrityError:
+            messages.info(request, "Ten film jest już w ulubionych")
+            return redirect('favourites')
 
     return render(request, template_name, {'movie': founded_film})
 
@@ -95,3 +107,13 @@ def movies_list(request):
         messages.warning(request, "Cos poszło nie takk.. :c")
 
     return render(request, template_name, {'search_result': search_result})
+
+
+def favourites(request):
+    favorite_movies = []
+    user = User.objects.get(username=request.user.username)
+    favs = Favorite.objects.for_user(user=user, model=Movie).values("target_object_id")
+    for items in favs.values("target_object_id"):
+        for k, v in items.items():
+            favorite_movies.append(Movie.objects.get(id=v))
+    return render(request, "movie_list.html", {'search_result': favorite_movies})

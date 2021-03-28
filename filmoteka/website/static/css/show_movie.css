@@ -15,6 +15,23 @@
     color: #eeeeee;
 }
 
+#id_favs_button{
+    width: 105%;
+    border-radius: 16px;
+    background: rgba(0, 2, 64, 0.93);
+    color: #eeeeee;
+}
+
+#id_favs_form{
+    float: left;
+    margin: 1% 15%;
+}
+
+.star_section{
+    margin-top: 10px;
+    margin-left: 50%;
+}
+
 .poster-section img{
     margin: 10px 0 0 10px;
     width: 323px;
