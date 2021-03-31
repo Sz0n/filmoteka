@@ -9,13 +9,20 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js"
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js"
             integrity="sha384–7aThvCh9TypR7fIc2HV4O/nFMVCBwyIUKL8XCtKE+8xgCgl/PQGuFsvShjr74PBp"
             crossorigin="anonymous"></script>
 </head>
 <body id="main_body">
 
 <nav class="navbar navbar-expand-sm bg-custom navbar-custom">
+    <ul class="navbar-nav mr-auto">
+        {% if user.is_authenticated %}
+            <li class="nav-item1">
+                <a class="nav-link" href="{% url 'favourites' %}">Ulubione</a>
+            </li>
+        {% endif %}
+    </ul>
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown ">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -40,7 +47,6 @@
 
 {% if messages %}
     {% for message in messages %}
-        <center>
         {% if message.tags == "info" %}
             <div class="alert alert-primary" role="alert" style="width: 650px; margin-top: 1%">
                 {{ message }}
@@ -48,18 +54,42 @@
         {% endif %}
     {% endfor %}
 {% endif %}
-<center>
-    <div class="title">
-        <h1>Filmoteka</h1>
-    </div>
-    <div class="search">
-        <form method="POST" id="urlform" action="">
-            {% csrf_token %}
-            <input name="search_bar" class="film_url" type="text" placeholder="Wpisz tytuł lub gatunek filmowy..">
-            <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
-    </div>
-</center>
-</center>
+
+<div class="title" id="home_title">
+    <h1>Filmoteka</h1>
+</div>
+
+<div class="search" id="home_search">
+    <form method="POST" id="urlform" action="">
+        {% csrf_token %}
+        <input name="search_bar" class="film_url" type="text" placeholder="Wpisz tytuł lub gatunek filmowy..">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+</div>
+
+<table class="tg" id="genre_table">
+    <tr>
+        <td><a href="{% url 'movies_list' %}?movie_genre=Akcja"> Akcja</a></td>
+        <td><a href="{% url 'movies_list' %}?movie_genre=Thriller"> Thriller</a></td>
+        <td><a href="{% url 'movies_list' %}?movie_genre=Familijny"> Familijny</a></td>
+        <td><a href="{% url 'movies_list' %}?movie_genre=Dramat"> Dramat</a></td>
+        <td><a href="{% url 'movies_list' %}?movie_genre=Fantasy"> Fantasy</a></td>
+    </tr>
+    <tr>
+        <td><a href="{% url 'movies_list' %}?movie_genre=Sci-Fi"> Sci-Fi</a></td>
+        <td><a href="{% url 'movies_list' %}?movie_genre=Komedia"> Komedia</a></td>
+        <td><a href="{% url 'movies_list' %}?movie_genre=Animacja"> Animacja</a></td>
+        <td><a href="{% url 'movies_list' %}?movie_genre=Wojenny"> Wojenny</a></td>
+        <td><a href="{% url 'movies_list' %}?movie_genre=Kryminał"> Kryminał</a></td>
+    </tr>
+    <tr>
+        <td><a href="{% url 'movies_list' %}?movie_genre=Gangsterski"> Gangsterski</a></td>
+        <td><a href="{% url 'movies_list' %}?movie_genre=Surrealistyczny"> Surrealistyczny</a></td>
+        <td><a href="{% url 'movies_list' %}?movie_genre=Psychologiczny"> Psychologiczny</a></td>
+        <td><a href="{% url 'movies_list' %}?movie_genre=Biograficzny"> Biograficzny</a></td>
+        <td><a href="{% url 'movies_list' %}?movie_genre=Przygodowy"> Przygodowy</a></td>
+    </tr>
+</table>
+
 </body>
 </html>

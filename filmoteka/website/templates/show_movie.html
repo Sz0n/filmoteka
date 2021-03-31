@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{#{% load comments %}#}
+{% load comments %}
 {#{% load ratings %}#}
 {% block content %}
     <section class="poster-section">
@@ -185,30 +185,30 @@
             <div id="swapper-comments" style="display:none;">
                 <h2>Komentarze:</h2>
                 <hr style="margin-top: auto">
-{#                {% get_comment_count for movie as comment_count %}#}
-                <p>{{ comment_count }} komentarzy</p>
+                    {% get_comment_count for movie as comment_count %}
+                <p>Ilość komentarzy: {{ comment_count }}</p>
                 <div id="comment_list" name="comment_list" style="max-height: 28%; overflow-y: scroll;">
-{#                    {% render_comment_list for movie %}#}
+                    {% render_comment_list for movie %}
                 </div>
                 <hr style="margin-top: auto">
                 {% if user.is_authenticated %}
-{#                    {% get_comment_form for movie as form %}#}
-{#                    <form action="{% comment_form_target %}" method="POST">#}
+                    {% get_comment_form for movie as form %}
+                    <form action="{% comment_form_target %}" method="POST">
                         {% csrf_token %}
                         <center>
                             <table>
-{#                                {{ form.comment }}#}
-{#                                {{ form.content_type }}#}
-{#                                {{ form.object_pk }}#}
-{#                                {{ form.timestamp }}#}
-{#                                {{ form.security_hash }}#}
+                                {{ form.comment }}
+                                {{ form.content_type }}
+                                {{ form.object_pk }}
+                                {{ form.timestamp }}
+                                {{ form.security_hash }}
                             </table>
                             <input type="hidden" name="email" value="foo@foo.foo"/>
                             <input type="hidden" name="next" value="{{ request.get_full_path }}"/>
                             <input type="submit" value="Dodaj komentarz" id="id_submit"/></center>
                     </form>
                 {% else %}
-{#                    <p>Musisz być <a href="{% url 'login' %}?next={{ request.get_full_path|urlencode }}">zalogowany</a> żeby dodać komentarz.</p>#}
+                    <p>Musisz być <a href="{% url 'login' %}?next={{ request.get_full_path|urlencode }}">zalogowany</a> żeby dodać komentarz.</p>
                 {% endif %}
             </div>
         </div>
