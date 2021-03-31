@@ -22,5 +22,6 @@ urlpatterns = [
     path('users/', include('django.contrib.auth.urls')),
     path('users/', include('users.urls')),
     path('comments/', include('django_comments.urls')),
+    path('ratings/', include('star_ratings.urls', namespace='ratings')),
 
 ]

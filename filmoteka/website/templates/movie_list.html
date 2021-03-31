@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{#{% load ratings %}#}
+{% load ratings %}
 {% block content %}
     <body>
     {% if messages %}
@@ -38,7 +38,7 @@
             </section>
 
             <div class="rating">
-{#                {% ratings s 15 15 1 %}#}
+                {% ratings s 15 15 1 %}
             </div>
             <div class="director">
                 {% for director in s.directors_as_list %}

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load comments %}
-{#{% load ratings %}#}
+{% load ratings %}
 {% block content %}
     <section class="poster-section">
         <img class="poster" height="100%" width="100%" src="{{ movie.poster }}">
@@ -127,13 +127,13 @@
                         </form>
                         <center>
                             <div class="star_section">
-{#                                {% ratings movie 18 18 %}#}
+                                {% ratings movie 18 18 %}
                             </div>
                         </center>
                     {% else %}
                         <center>
                             <div style="margin-top: 10px;">
-{#                                {% ratings movie 18 18 %}#}
+                                {% ratings movie 18 18 %}
                             </div>
                         </center>
                     {% endif %}

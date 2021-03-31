@@ -1,0 +1,65 @@
+{% extends "star_ratings/widget_base.html" %}
+
+{% block rating_detail %}
+    {% if user.is_authenticated and not read_only%}
+        <div style="margin-top: -15px">
+        {% block rating_average %}
+            <div class="star-ratings-rating-average">Średnia:
+                <span class='star-ratings-rating-value'>{{ rating.average|floatformat:"-2" }}</span></div>
+        {% endblock rating_average %}
+        {% block rating_count %}
+            <div class="star-ratings-rating-count">
+                Liczba głosów:
+                <span class='star-ratings-rating-value'>
+                {{ rating.count }}
+            </span>
+            </div>
+        {% endblock rating_count %}
+        {% block rating_user %}
+            {% if user.is_authenticated %}
+                <div class="star-ratings-rating-user">
+                    Twoja ocena:
+                    <span class='star-ratings-rating-value'>
+            {% if user_rating %}
+                {{ user_rating.score }}
+            {% else %}
+                Brak
+            {% endif %}
+            </span></div>
+            {% endif %}
+            {% if not user.is_authenticated and not anonymous_ratings and not read_only %}
+                <p>Musisz być <a href="{% url 'login' %}">zalogowany</a> żeby ocenić ten film.</p>
+            {% endif %}
+        {% endblock rating_user %}
+        </div>
+    {% elif not read_only %}
+        {% block rating_1 %}
+            <div class="star-ratings-rating-average">Średnia:
+                <span class='star-ratings-rating-value'>{{ rating.average|floatformat:"-2" }}</span></div>
+        {% endblock rating_1 %}
+        {% block rating_2 %}
+            <div class="star-ratings-rating-count">
+                Liczba głosów:
+                <span class='star-ratings-rating-value'>
+                {{ rating.count }}
+            </span>
+            </div>
+        {% endblock rating_2 %}
+        {% block rating_3 %}
+            {% if user.is_authenticated %}
+                <div class="star-ratings-rating-user">
+                    Twoja ocena:
+                    <span class='star-ratings-rating-value'>
+            {% if user_rating %}
+                {{ user_rating.score }}
+            {% else %}
+                Brak
+            {% endif %}
+            </span></div>
+            {% endif %}
+            {% if not user.is_authenticated and not anonymous_ratings and not read_only %}
+                <p>Musisz być <a href="{% url 'login' %}?next={{ request.get_full_path|urlencode }}">zalogowany</a> żeby ocenić ten film.</p>
+            {% endif %}
+        {% endblock rating_3 %}
+    {% endif %}
+{% endblock rating_detail %}

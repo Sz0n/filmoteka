@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django_comments',
+    'star_ratings',
     'website',
     'users',
     'fav',
@@ -61,7 +62,7 @@ ROOT_URLCONF = 'filmoteka.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'website/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -130,7 +131,10 @@ STATIC_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-SITE_ID=1
+SITE_ID = 1
+
+STAR_RATINGS_RERATE = False
+STAR_RATINGS_RANGE = 10
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
